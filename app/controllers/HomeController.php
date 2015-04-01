@@ -60,10 +60,6 @@ class HomeController extends BaseController {
                 $displayFields = $tableFields[0]->displayed_fields;
                 $f = substr(chop($displayFields),7);
                 $arrDisplayFields = explode("\n- ",$f);
-//                return $arrDisplayFields;
-//
-//                $var = 'po_number';
-//                return $items[0]->$arrDisplayFields[2];
             }
             else {
                 foreach($categoryChild as $cChild) {
@@ -90,15 +86,9 @@ class HomeController extends BaseController {
         //return $categoryPath;
         //return $categoryItems;
         //return $categoryParent;
-<<<<<<< HEAD
-        return View::make("home.lists")->with('allItems', array('categoryItems' => $categoryItems));
-=======
-//        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems));
-        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems,
-            'items' => $items, 'numOfItems' => $numOfItems, 'arrDisplayFields'=> $arrDisplayFields));
-//        $catChildCount = 5;
-//        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems, 'c' => $catChildCount));
->>>>>>> 9f5057b4fe107c9cfad90ceae9f0eca31cec47b1
+        return View::make("home.lists")->with('allItems', array('categoryItems' => $categoryItems,'items' => $items,
+            'numOfItems' => $numOfItems, 'arrDisplayFields' => $arrDisplayFields));
+
     }
 
 
