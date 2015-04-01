@@ -1,0 +1,57 @@
+/*Styles go here*/
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+}
+
+#content {
+    position: fixed;
+    top: 1.8em;
+    bottom: 0;
+    left: 12em;
+    right: 0;
+    padding: 1em;
+    overflow: auto;
+}
+
+#topleft {
+    top: 0;
+    position: fixed;
+    left: 12em;
+    right: 0;
+    height: 1.8em;
+    text-align: left;
+    background-color: #E6E6E6;
+    padding: 0.25em;
+    clear: both;
+}
+
+#topright {
+    position: fixed;
+    right: 0;
+    text-align: right;
+    padding: 0.25em;
+    z-index: 3;
+    background-color: #E6E6E6;
+}
+
+#leftbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12em;
+    height: 100%;
+    background-color: #003062;
+    text-align: left;
+    color: #FFF;
+    padding-top: 1em;
+    overflow: hidden;
+    z-index: 4;
+    padding-left: 0.25em;
+}
+
+ul {
+    list-style: none;
+}
