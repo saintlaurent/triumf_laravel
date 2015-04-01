@@ -11,9 +11,10 @@
     @else
     <div id="topright">
         <form method="post" action="{{URL::route('post-sign-in')}}">
-        Username: <input name="username" type="text">
-        Password: <input name="password" type="password">
-        <input type="submit"></form>
+            Username: <input name="username" type="text">
+            Password: <input name="password" type="password">
+            <input type="submit">
+        </form>
     </div>
 
     @endif

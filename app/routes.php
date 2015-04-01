@@ -26,6 +26,7 @@ Route::get('/daqinv', 'HomeController@index');
 Route::get('/daqinv/lists/{categories}', 'HomeController@lists');
 
 
+
 Route::post('/home', array(
     'as' => 'post-sign-in',
     'uses' => 'ProfileController@signIn'

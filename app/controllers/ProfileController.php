@@ -28,25 +28,26 @@ class ProfileController extends BaseController {
         );
        
 
-        if($auth)
-        {
-            //return "logged in";
-            $username = Input::get('username');
-            $user = User::where('user_name', '=', $username);
-
-            //  return View::make('blog')->with('posts', $posts);
-            if ($user->count()){
-
-                $user = $user->first();
-
-                return View::make('home')->with('user',$user);
-            }
-            return "<p>Sorry, profile not found.</p>";
-        }
-        else
-        {
-            return "failed to login";
-        }
+//        if($auth)
+//        {
+//            return "logged in";
+//            $username = Input::get('username');
+//            $user = User::where('user_name', '=', $username);
+//
+//            //  return View::make('blog')->with('posts', $posts);
+//            if ($user->count()){
+//
+//                $user = $user->first();
+//
+//               // return View::make('home')->with('user',$user);
+//                echo "Logged in";
+//            }
+//            return "<p>Sorry, profile not found.</p>";
+//        }
+//        else
+//        {
+//            return "failed to login";
+//        }
     }
 
 }
