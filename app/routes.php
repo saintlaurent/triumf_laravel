@@ -20,7 +20,13 @@ Route::get('/home', function()
 {
     return View::make('home');
 });
-// 
+
+
+Route::get('/daqinv', 'HomeController@index');
+Route::get('/daqinv/lists/{categories}', 'HomeController@lists');
+
+
+//
 //Route::group(array('before' => 'guest', function(){
 //    //Unauthenticated guests
 //    Route::group(array('before' => 'crsf', function(){
