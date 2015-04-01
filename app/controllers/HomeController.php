@@ -40,6 +40,10 @@ class HomeController extends BaseController {
         try {
             $categoryPath = array();
             $categoryItems = array();
+            $items = array();
+            $numOfItems = 0;
+            $arrDisplayFields = array();
+
 
             $categoryItem = Category::where('id', '=', $categories)->firstOrFail();
             array_push($categoryPath, $categoryItem);
@@ -58,7 +62,19 @@ class HomeController extends BaseController {
             $categoryChild = Category::where('parent_id', '=', $categories)->get();
             $catChildCount = $categoryChild->count();
             if($catChildCount == 0) {
-                return "this is base level category 1";
+                /* leaf nodes */
+                $items = Item::where('category_id', '=', $categories)->get();
+                $numOfItems = $items->count();
+
+                /* gather display fields */
+                $tableFields = Category::where('id', '=', $items[0]->category_id)->get();
+                $displayFields = $tableFields[0]->displayed_fields;
+                $f = substr(chop($displayFields),7);
+                $arrDisplayFields = explode("\n- ",$f);
+//                return $arrDisplayFields;
+//
+//                $var = 'po_number';
+//                return $items[0]->$arrDisplayFields[2];
             }
             else {
                 foreach($categoryChild as $cChild){
@@ -76,7 +92,11 @@ class HomeController extends BaseController {
         //return $categoryPath;
         //return $categoryItems;
         //return $categoryParent;
-        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems));
+//        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems));
+        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems,
+            'items' => $items, 'numOfItems' => $numOfItems, 'arrDisplayFields'=> $arrDisplayFields));
+//        $catChildCount = 5;
+//        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems, 'c' => $catChildCount));
     }
 
 
