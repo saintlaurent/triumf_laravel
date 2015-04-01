@@ -2,22 +2,22 @@
 @section('maincontent')
 
 
-<h1>{{$allItems['categoryPath'][0]->name}}.</h1>
-
-
 @forelse($allItems['categoryItems'] as $cItems)
+    <?php $firstItem = true ?>
     <li>
-        @forelse($allItems['categoryPath'] as $cPath)
-            <a href="{{ URL::to('daqinv/lists/'. $cPath->id) }}">{{$cPath->name}}</a>->
+        @forelse($cItems as $cPath)
+            @if ($firstItem == true)
+                <a href="{{ URL::to('daqinv/lists/'. $cPath->id) }}">{{$cPath->name}}</a>
+                <?php $firstItem = false ?>
+            @else
+                >> <a href="{{ URL::to('daqinv/lists/'. $cPath->id) }}">{{$cPath->name}}</a>
+            @endif
         @empty
         @endforelse
-        {{$cItems->id}}: <a href="{{ URL::to('daqinv/lists/'. $cItems->id) }}">{{$cItems->name}}</a>
     </li>
 @empty
     <h5>Currently no Items.</h5>
 @endforelse
-
-
 
 
 

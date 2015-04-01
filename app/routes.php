@@ -26,7 +26,7 @@ Route::get('/daqinv', 'HomeController@index');
 Route::get('/daqinv/lists/{categories}', 'HomeController@lists');
 
 
-//TEST STEVE
+
 //Route::group(array('before' => 'guest', function(){
 //    //Unauthenticated guests
 //    Route::group(array('before' => 'crsf', function(){

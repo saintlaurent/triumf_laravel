@@ -38,22 +38,11 @@ class HomeController extends BaseController {
     public function lists($categories)
     {
         try {
-            $categoryPath = array();
+            //$categoryPath = array();
             $categoryItems = array();
 
             $categoryItem = Category::where('id', '=', $categories)->firstOrFail();
-            array_push($categoryPath, $categoryItem);
-            //$categoryPath = array_add($categoryPath, 0, $categoryItem);
-            //$categoryItems = array_add($categoryItems, $categoryItem->id, $categoryItem);
-
-            $categoryParent = Category::where('id', '=', $categoryItem->parent_id)->firstOrFail();
-            //$pathCount = 1;
-            while($categoryParent->id != 1) {
-                array_push($categoryPath, $categoryParent);
-                //$categoryPath = array_add($categoryPath, $pathCount, $categoryParent);
-                //$pathCount+= 1;
-                $categoryParent = Category::where('id', '=', $categoryParent->parent_id)->firstOrFail();
-            }
+            array_push($categoryItems, $this->getPath($categoryItem));
 
             $categoryChild = Category::where('parent_id', '=', $categories)->get();
             $catChildCount = $categoryChild->count();
@@ -61,8 +50,18 @@ class HomeController extends BaseController {
                 return "this is base level category 1";
             }
             else {
-                foreach($categoryChild as $cChild){
-                    array_push($categoryItems, $cChild);
+                foreach($categoryChild as $cChild) {
+                    //array_push($categoryItems, $cChild);
+                    $categoryChildChild = Category::where('parent_id', '=', $cChild->id)->get();
+                    $catChildChildCount = $categoryChildChild->count();
+
+                    if ($catChildChildCount == 0) {
+                        array_push($categoryItems, $this->getPath($cChild));
+                    } else {
+                        foreach ($categoryChildChild as $cChildChild) {
+                            array_push($categoryItems, $this->getPath($cChildChild));
+                        }
+                    }
                 }
             }
 
@@ -70,14 +69,29 @@ class HomeController extends BaseController {
         catch(Exception $e) {
             return $e->getMessage();
         }
-        $categoryPath = array_reverse($categoryPath);
 
         //return $categoryItems;
         //return $categoryPath;
         //return $categoryItems;
         //return $categoryParent;
-        return View::make("home.lists")->with('allItems', array('categoryPath' => $categoryPath, 'categoryItems' => $categoryItems));
+        return View::make("home.lists")->with('allItems', array('categoryItems' => $categoryItems));
     }
+
+
+    public function getPath($category) {
+        $categoryPath = array();
+        array_push($categoryPath, $category);
+
+        $categoryItem = Category::where('id', '=', $category->parent_id)->firstOrFail();
+        while($categoryItem->id != 1) {
+            array_push($categoryPath, $categoryItem);
+            $categoryItem = Category::where('id', '=', $categoryItem->parent_id)->firstOrFail();
+        }
+        $categoryPath = array_reverse($categoryPath);
+        return $categoryPath;
+    }
+
+
 
 
 }
