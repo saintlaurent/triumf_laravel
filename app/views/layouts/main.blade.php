@@ -10,9 +10,11 @@
     @if(Auth::check())
     @else
     <div id="topright">
-        Username: <input type="text">
-        Password: <input type="password">
-        <input type="submit">
+        <form method="post" action="{{URL::route('post-sign-in')}}">
+            Username: <input name="username" type="text">
+            Password: <input name="password" type="password">
+            <input type="submit">
+        </form>
     </div>
 
     @endif
