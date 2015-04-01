@@ -26,6 +26,27 @@ Route::get('/daqinv', 'HomeController@index');
 Route::get('/daqinv/lists/{categories}', 'HomeController@lists');
 
 
+Route::post('/home', array(
+    'as' => 'post-sign-in',
+    'uses' => 'ProfileController@signIn'
+));
+
+Route::get('/logout', function(){
+    Auth::logout();
+    return View::make('logout');
+});
+
+Route::get('/restricted', array('before' => 'auth', function(){
+    return View::make('restricted'); }
+
+));
+
+
+Route::get('/restricted2', array('before' => 'auth', function(){
+    return View::make('restricted2'); }
+
+));
+
 //
 //Route::group(array('before' => 'guest', function(){
 //    //Unauthenticated guests
